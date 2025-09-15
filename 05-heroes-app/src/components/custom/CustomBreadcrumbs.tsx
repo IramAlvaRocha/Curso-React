@@ -1,20 +1,22 @@
-import { Link } from "react-router";
+import React from 'react';
+import { SlashIcon } from 'lucide-react';
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbSeparator,
-} from "../ui/breadcrumb";
+} from '../ui/breadcrumb';
+import { Link } from 'react-router';
 
-interface Breadcrum {
+interface Breadcrumb {
   label: string;
   to: string;
 }
 
 interface Props {
   currentPage: string;
-  breadcrumbs?: Breadcrum[];
+  breadcrumbs?: Breadcrumb[];
 }
 
 export const CustomBreadcrumbs = ({ currentPage, breadcrumbs = [] }: Props) => {
@@ -22,22 +24,27 @@ export const CustomBreadcrumbs = ({ currentPage, breadcrumbs = [] }: Props) => {
     <Breadcrumb className="my-5">
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink>
-            <Link to={"/"}>Home</Link>
+          <BreadcrumbLink asChild>
+            <Link to="/">Inicio</Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
-        {breadcrumbs.map((crumb) => (
-          <div className="flex items-center">
-            <BreadcrumbSeparator />
 
+        {breadcrumbs.map((crumb, index) => (
+          <React.Fragment key={index}>
+            <BreadcrumbSeparator>
+              <SlashIcon />
+            </BreadcrumbSeparator>
             <BreadcrumbItem>
-              <BreadcrumbLink className="text-black">
-                <Link to={crumb.to}> {crumb.label} </Link>
+              <BreadcrumbLink asChild>
+                <Link to={crumb.to}>{crumb.label}</Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
-          </div>
+          </React.Fragment>
         ))}
-        <BreadcrumbSeparator />
+
+        <BreadcrumbSeparator>
+          <SlashIcon />
+        </BreadcrumbSeparator>
 
         <BreadcrumbItem>
           <BreadcrumbLink className="text-black">{currentPage}</BreadcrumbLink>
