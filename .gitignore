@@ -1,0 +1,61 @@
+# Node modules en cualquier nivel
+**/node_modules/
+
+# Archivos de entorno (excepto templates)
+**/.env
+**/.env.local
+**/.env.development
+**/.env.development.local
+**/.env.test
+**/.env.test.local
+**/.env.production
+**/.env.production.local
+
+# Permitir archivos template de entorno
+!**/.env.template
+!**/.env.example
+
+# Logs de npm/yarn
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/lerna-debug.log*
+
+# Archivos de dependencias opcionales
+**/package-lock.json
+**/yarn.lock
+**/pnpm-lock.yaml
+
+# Archivos de compilación y distribución
+**/build/
+**/dist/
+**/.next/
+**/out/
+
+# Archivos de caché
+**/.npm
+**/.eslintcache
+**/.parcel-cache/
+**/.cache/
+
+# Archivos de testing
+**/coverage/
+**/.nyc_output
+
+# Archivos temporales
+**/*.tsbuildinfo
+**/.DS_Store
+**/Thumbs.db
+
+# Archivos de IDE y editores
+**/.vscode/
+**/.idea/
+**/*.swp
+**/*.swo
+**/*~
+
+# Archivos del sistema Windows
+**/desktop.ini
+
+# Archivos de configuración local
+**/.env.local
