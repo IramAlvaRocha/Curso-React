@@ -1,0 +1,9 @@
+{
+  "files": [],
+  //Son archivos de referencia que permiten a TypeScript entender la estructura del proyecto
+  // Este archivo es la configuración principal de TypeScript para el proyecto
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
+}
