@@ -12,7 +12,6 @@ import { CustomBreadcrumbs } from "@/components/custom/CustomBreadcrumbs";
 import { getHeroesByPageAction } from "@/heroes/actions/get-heroes-by-page.action";
 
 
-
 export const HomePage = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -27,16 +26,16 @@ export const HomePage = () => {
   }, [activeTab])
 
   const { data: heroesResponse } = useQuery({
-    queryKey: ['heroes'],
+    queryKey: ['heroes', {page, limit}],
     queryFn: () => getHeroesByPageAction(+page, +limit),
     staleTime: 1000 * 60 * 5, // 5 minutes
   });
-
+   
   return (
     <>
       <>
         {/* Header */}
-        <CustomJumbotron
+        <CustomJumbotron 
           title="The Superhero Universe!"
           description="Discover, explore, and manage your favorite superheroes and villains!"
         />
@@ -109,7 +108,7 @@ export const HomePage = () => {
         </Tabs>
 
         {/* Pagination */}
-        <CustomPagination totalPages={8} />
+        <CustomPagination totalPages={heroesResponse?.pages ?? 1 } />
       </>
     </>
   );
