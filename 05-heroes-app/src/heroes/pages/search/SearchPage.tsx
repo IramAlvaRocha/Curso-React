@@ -14,11 +14,7 @@ const SearchPage = () => {
       <CustomBreadcrumbs
         currentPage="Search for superheroes"
         breadcrumbs={
-          [
-            { label: "Home", to: "/" },
-            { label: "Home", to: "/" },
-            { label: "Home", to: "/" },
-          ]
+         []
         }
       />
 
