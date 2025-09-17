@@ -1,13 +1,13 @@
 import { createBrowserRouter, Navigate } from "react-router";
 
 import { AdminPage } from "@/admin/Pages/AdminPage";
-import { HeroPage } from "@/heroes/pages/hero/HeroPage";
 import { HomePage } from "@/heroes/pages/home/HomePage";
 // import { SearchPage } from "@/heroes/pages/search/SearchPage";
 
 import { AdminLayout } from "@/admin/layouts/AdminLayout";
 import { HeroesLayout } from "@/heroes/layouts/HeroesLayout";
 import { lazy } from "react";
+import { HeroPage } from "@/heroes/pages/hero/HeroPage";
 
 const SearchPage = lazy(()=> import('@/heroes/pages/search/SearchPage'))
 
@@ -22,8 +22,8 @@ export const appRouter = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "heroes/:slugId",
-        element: <HeroPage />,
+        path: "heroes/:idSlug",
+        element: <HeroPage />
       },
       {
         path: "search",

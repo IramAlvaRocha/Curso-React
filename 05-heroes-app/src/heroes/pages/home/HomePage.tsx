@@ -19,6 +19,7 @@ export const HomePage = () => {
   const activeTab = searchParams.get('tab') ?? 'all';
   const page = searchParams.get('page') ?? '1';
   const limit = searchParams.get('limit') ?? '6';
+  const category = searchParams.get('category') ?? 'all';
 
   const selectedTab = useMemo(() => {
     const validTabs = ['all', 'favorites', 'heroes', 'villains'];
@@ -26,14 +27,14 @@ export const HomePage = () => {
   }, [activeTab])
 
 
-  const { data: heroesResponse } = usePaginatedHero(+page, +limit)
+  const { data: heroesResponse } = usePaginatedHero(+page, +limit, category)
   const { data: summary } = useHeroSummary()
-   
+
   return (
     <>
       <>
         {/* Header */}
-        <CustomJumbotron 
+        <CustomJumbotron
           title="The Superhero Universe!"
           description="Discover, explore, and manage your favorite superheroes and villains!"
         />
@@ -50,9 +51,10 @@ export const HomePage = () => {
               value="all"
               onClick={() => setSearchParams(prev => {
                 prev.set('tab', 'all');
+                prev.set('category', 'all');
                 return prev;
               })} >
-              All Characters ({ summary?.totalHeroes })
+              All Characters ({summary?.totalHeroes})
             </TabsTrigger>
 
             <TabsTrigger
@@ -67,20 +69,25 @@ export const HomePage = () => {
               Favorites (3)
             </TabsTrigger>
 
-            <TabsTrigger value="heroes" onClick={() => setSearchParams(prev => {
-              prev.set('tab', 'heroes');
-              return prev;
-            })} >
-              Heroes ({ summary?.heroCount })
+            <TabsTrigger value="heroes"
+              onClick={() => setSearchParams(prev => {
+                prev.set('tab', 'heroes');
+                prev.set('category', 'hero');
+                prev.set('page', '1')
+                return prev;
+              })} >
+              Heroes ({summary?.heroCount})
             </TabsTrigger>
 
             <TabsTrigger
               value="villains"
               onClick={() => setSearchParams(prev => {
                 prev.set('tab', 'villains');
+                prev.set('category', 'villain');
+                prev.set('page', '1')
                 return prev;
               })} >
-              Villains ({ summary?.villainCount })
+              Villains ({summary?.villainCount})
             </TabsTrigger>
           </TabsList>
 
@@ -91,22 +98,25 @@ export const HomePage = () => {
           <TabsContent value="favorites">
             <h1>All Favorites</h1>
             {/* Show all favorite characters */}
-            {/* <HeroGrid /> */}
+            {/* <HeroGrid heroes={heroesResponse?.heroes ?? []} /> */}
+
           </TabsContent>
           <TabsContent value="heroes">
             <h1>Heroes</h1>
             {/* Show all heroes */}
-            {/* <HeroGrid /> */}
+            <HeroGrid heroes={heroesResponse?.heroes ?? []} />
+
           </TabsContent>
           <TabsContent value="villains">
             {/* Show all villains */}
             <h1>Villains</h1>
-            {/* <HeroGrid /> */}
+            <HeroGrid heroes={heroesResponse?.heroes ?? []} />
+
           </TabsContent>
         </Tabs>
 
         {/* Pagination */}
-        <CustomPagination totalPages={heroesResponse?.pages ?? 1 } />
+        <CustomPagination totalPages={heroesResponse?.pages ?? 1} />
       </>
     </>
   );
